@@ -1,5 +1,6 @@
 import type { OpportunityType, FundingStatus } from '../data/opportunities';
 import { arNum } from '../lib/format';
+import { SortMenu, type SortKey } from './SortMenu';
 
 export type TypeFilter = 'all' | OpportunityType;
 export type FundingFilter = 'all' | FundingStatus;
@@ -7,8 +8,10 @@ export type FundingFilter = 'all' | FundingStatus;
 interface FilterBarProps {
   type: TypeFilter;
   funding: FundingFilter;
+  sort: SortKey;
   onType: (t: TypeFilter) => void;
   onFunding: (f: FundingFilter) => void;
+  onSort: (s: SortKey) => void;
   resultCount: number;
   anyActive: boolean;
   onClear: () => void;
@@ -36,7 +39,7 @@ function pillClass(active: boolean, hue: 'forest' | 'amber') {
   ].join(' ');
 }
 
-export function FilterBar({ type, funding, onType, onFunding, resultCount, anyActive, onClear }: FilterBarProps) {
+export function FilterBar({ type, funding, sort, onType, onFunding, onSort, resultCount, anyActive, onClear }: FilterBarProps) {
   return (
     <div
       id="opps"
@@ -61,7 +64,8 @@ export function FilterBar({ type, funding, onType, onFunding, resultCount, anyAc
           ))}
         </div>
 
-        <div className="flex items-center gap-3.5 ms-auto">
+        <div className="flex items-center flex-wrap gap-3 ms-auto">
+          <SortMenu value={sort} onChange={onSort} />
           <span className="text-[14px] font-semibold text-sage-500 whitespace-nowrap">
             {arNum(resultCount)} فرصة
           </span>

@@ -10,10 +10,31 @@ interface HeroProps {
 const leaves = [
   { top: '120px', right: '8%', width: '74px', opacity: 0.3, r: '-18deg', delay: '0s', dur: '7s' },
   { top: '230px', left: '10%', width: '54px', opacity: 0.22, r: '24deg', delay: '0.6s', dur: '9s' },
-  { bottom: '120px', right: '16%', width: '46px', opacity: 0.2, r: '42deg', delay: '1.1s', dur: '8s' },
-  { bottom: '80px', left: '7%', width: '84px', opacity: 0.16, r: '-30deg', delay: '0.3s', dur: '10s' },
+  { bottom: '180px', right: '16%', width: '46px', opacity: 0.2, r: '42deg', delay: '1.1s', dur: '8s' },
+  { bottom: '140px', left: '7%', width: '84px', opacity: 0.16, r: '-30deg', delay: '0.3s', dur: '10s' },
   { top: '340px', right: '38%', width: '34px', opacity: 0.18, r: '60deg', delay: '1.4s', dur: '6.5s' },
 ];
+
+const statIcons = {
+  opps: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  ),
+  funded: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v10M9 10h4.5a1.5 1.5 0 0 1 0 3H10a1.5 1.5 0 0 0 0 3h5" />
+    </svg>
+  ),
+  countries: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a14 14 0 0 1 4 9 14 14 0 0 1-4 9 14 14 0 0 1-4-9 14 14 0 0 1 4-9z" />
+    </svg>
+  ),
+};
 
 export function Hero({ query, onQueryChange }: HeroProps) {
   const opps = useCountUp(800);
@@ -22,12 +43,24 @@ export function Hero({ query, onQueryChange }: HeroProps) {
 
   return (
     <header
-      className="relative overflow-hidden text-center pt-[170px] pb-[90px] px-[clamp(20px,5vw,64px)]"
+      className="relative overflow-hidden text-center pt-[170px] pb-[140px] px-[clamp(20px,5vw,64px)]"
       style={{
         background:
           'radial-gradient(1100px 520px at 72% -8%, #E7F2E8 0%, rgba(231,242,232,0) 60%), radial-gradient(900px 480px at 12% 8%, #FBF1E0 0%, rgba(251,241,224,0) 55%), #FFFFFF',
       }}
     >
+      {/* dotted pattern overlay */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(43,107,58,0.18) 1px, transparent 1px)',
+          backgroundSize: '22px 22px',
+          maskImage: 'radial-gradient(circle at 50% 30%, #000 0%, transparent 70%)',
+          WebkitMaskImage: 'radial-gradient(circle at 50% 30%, #000 0%, transparent 70%)',
+        }}
+      />
+
       <div className="pointer-events-none absolute inset-0 z-0">
         {leaves.map((l, i) => (
           <img
@@ -70,12 +103,27 @@ export function Hero({ query, onQueryChange }: HeroProps) {
           الطامح إلى صناعة مستقبلٍ أكثر استدامة.
         </p>
 
-        <div className="flex flex-wrap justify-center gap-x-[clamp(28px,6vw,72px)] gap-y-7 mb-12">
-          <Stat innerRef={opps.ref} value={`${arNum(opps.value)}+`} label="فرصة متاحة" color="text-forest" />
-          <div className="w-px bg-sage-300 self-stretch my-1.5" />
-          <Stat value={arNum(funded.value)} label="فرصة ممولة بالكامل" color="text-amber-brand" />
-          <div className="w-px bg-sage-300 self-stretch my-1.5" />
-          <Stat value={arNum(countries.value)} label="دولة عربية" color="text-forest" />
+        {/* Stat chips */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-[760px] mx-auto mb-12">
+          <StatChip
+            innerRef={opps.ref}
+            icon={statIcons.opps}
+            value={`${arNum(opps.value)}+`}
+            label="فرصة متاحة"
+            tone="forest"
+          />
+          <StatChip
+            icon={statIcons.funded}
+            value={arNum(funded.value)}
+            label="فرصة ممولة بالكامل"
+            tone="amber"
+          />
+          <StatChip
+            icon={statIcons.countries}
+            value={arNum(countries.value)}
+            label="دولة عربية"
+            tone="forest"
+          />
         </div>
 
         <div
@@ -104,24 +152,51 @@ export function Hero({ query, onQueryChange }: HeroProps) {
           />
         </div>
       </div>
+
+      {/* Organic curved wave separator */}
+      <svg
+        aria-hidden
+        viewBox="0 0 1440 110"
+        preserveAspectRatio="none"
+        className="absolute bottom-0 left-0 w-full h-[80px] sm:h-[110px]"
+      >
+        <path
+          d="M0 60 C 240 110, 480 0, 720 40 C 960 80, 1200 30, 1440 70 L1440 110 L0 110 Z"
+          fill="#F4F8F3"
+        />
+      </svg>
     </header>
   );
 }
 
-interface StatProps {
+interface ChipProps {
   value: string;
   label: string;
-  color: string;
+  icon: React.ReactNode;
+  tone: 'forest' | 'amber';
   innerRef?: React.Ref<HTMLDivElement>;
 }
 
-function Stat({ value, label, color, innerRef }: StatProps) {
+function StatChip({ value, label, icon, tone, innerRef }: ChipProps) {
+  const iconBg = tone === 'forest' ? 'bg-sage-200 text-forest' : 'bg-amber-soft text-amber-brand';
+  const numberColor = tone === 'forest' ? 'text-forest' : 'text-amber-brand';
+
   return (
-    <div ref={innerRef} className="text-center">
-      <div className={`font-black leading-none ${color}`} style={{ fontSize: 'clamp(34px,5vw,54px)' }}>
-        {value}
+    <div
+      ref={innerRef}
+      className="group flex items-center gap-3.5 bg-white border border-[#E2EBE3] rounded-2xl px-4 py-3.5 shadow-[0_8px_24px_rgba(20,55,32,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(20,55,32,0.10)]"
+    >
+      <span
+        className={`shrink-0 inline-flex items-center justify-center w-11 h-11 rounded-xl ${iconBg} transition-transform duration-300 group-hover:scale-110`}
+      >
+        {icon}
+      </span>
+      <div className="text-right">
+        <div className={`font-black leading-none ${numberColor}`} style={{ fontSize: 'clamp(22px,3vw,30px)' }}>
+          {value}
+        </div>
+        <div className="text-[13px] text-sage-600 font-semibold mt-1">{label}</div>
       </div>
-      <div className="text-[15px] text-sage-600 font-semibold mt-2">{label}</div>
     </div>
   );
 }

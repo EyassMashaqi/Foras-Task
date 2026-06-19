@@ -43,12 +43,17 @@ export default {
           from: { opacity: '0', transform: 'translateY(16px)' },
           to: { opacity: '1', transform: 'none' },
         },
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
       },
       animation: {
         gradShift: 'gradShift 6s linear infinite',
         riseIn: 'riseIn .5s ease both',
         floaty: 'floaty 8s ease-in-out infinite',
         fadeUp: 'fadeUp .6s ease both',
+        marquee: 'marquee 32s linear infinite',
       },
     },
   },
