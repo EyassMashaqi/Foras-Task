@@ -31,7 +31,7 @@ The project was rebuilt from a static Claude-designed HTML mockup (`Foras Khadra
 | Language     | TypeScript 5                        |
 | Build tool   | Vite 5                              |
 | Styling      | Tailwind CSS 3 + custom theme       |
-| Fonts        | Tajawal (Google Fonts)              |
+| Fonts        | juman-arabic-normal,ExpoArabic-Book            |
 | Package mgr  | npm                                 |
 
 ---
