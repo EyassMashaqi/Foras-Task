@@ -40,7 +40,7 @@ The project was rebuilt from a static Claude-designed HTML mockup (`Foras Khadra
 
 ```
 Foras-Task/
-├── index.html                  # RTL/ar entrypoint, loads Tajawal
+├── index.html                  # RTL/ar entrypoint, loads juman-arabic-normal,ExpoArabic-Book
 ├── package.json
 ├── vite.config.ts
 ├── tailwind.config.js          # Extended palette + custom keyframes
